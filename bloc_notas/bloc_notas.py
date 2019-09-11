@@ -15,6 +15,7 @@ Git Local
 Finalizar el ejercicio a la 16:15 enviar enlace por Github
 '''
 import os
+import csv
 
 def inicio():
     os.system("clear")
@@ -29,8 +30,8 @@ def menu():
         try:
             if opcion == 1:
                 añadir_nota()
-        # elif opcion == 2:
-        #     def ver_notas()
+            elif opcion == 2:
+                ver_notas()
         # elif opcion == 3:
         #     def borrar_nota()
             elif opcion == 4:
@@ -47,6 +48,11 @@ def añadir_nota():
     bloc.write(f'{nota}\n')
     bloc.close()
 
+def ver_notas():
+    bloc = open('bloc.csv', 'r')
+    lista_notas = csv.reader(bloc)
+    for numero,nota in enumerate(lista_notas):
+        print(f'\n{numero}-->{nota}')
 # def opcion_seleccionada(opcion):
 #     try:
 #         if opcion == 1:
