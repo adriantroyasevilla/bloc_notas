@@ -17,6 +17,8 @@ Finalizar el ejercicio a la 16:15 enviar enlace por Github
 import os
 import csv
 
+lista = []
+
 def inicio():
     os.system("clear")
     menu()
@@ -32,8 +34,8 @@ def menu():
                 añadir_nota()
             elif opcion == 2:
                 ver_notas()
-        # elif opcion == 3:
-        #     def borrar_nota()
+            elif opcion == 3:
+                eliminar_nota()
             elif opcion == 4:
                 exit()
             else:
@@ -43,30 +45,34 @@ def menu():
 
 def añadir_nota():
     nota = input(f'\nIntroduce la nota: ')
-    print('-- NOTA GUARDADA --\n')
-    bloc = open('bloc.csv', 'a')
+    bloc = open('bloc.csv','a')
     bloc.write(f'{nota}\n')
-    bloc.close()
-
+    print('-- NOTA GUARDADA --\n')
+    
 def ver_notas():
     bloc = open('bloc.csv', 'r')
-    lista_notas = csv.reader(bloc)
-    for numero,nota in enumerate(lista_notas):
-        print(f'\n{numero}-->{nota}')
-# def opcion_seleccionada(opcion):
-#     try:
-#         if opcion == 1:
-#             añadir_nota()
-#     elif opcion == 2:
-#         def ver_notas()
-#     elif opcion == 3:
-#         def borrar_nota()
-#         elif opcion == 4:
-#             exit()
-#         else:
-#             'Escoge una opción correcta'
-#     except ValueError:
-#             'Debes introducir un número'
+    leer = csv.reader(bloc)
+    print(f'\n -- Lista de notas --\n')
+    for numero,nota in enumerate(leer):
+        print(f'Nota {numero} --> {nota}')
+    print('')
+    
+def eliminar_nota():
+    nota_a_borrar = int(input(f'¿Qué nota desea borrar? --> '))
+    with open('bloc.csv','r+') as bloc:
+        leer = csv.reader(bloc)
+    for index,notas in enumerate(lista):
+        if index == nota_a_borrar:
+            del lista[index]
+        break
+    guardar()
+    print('')
+
+def guardar():
+    bloc = open('bloc.csv','w')
+    for notas in lista:
+        bloc.write(f'{notas}\n')
+
     
 if __name__ == "__main__":
     inicio()
